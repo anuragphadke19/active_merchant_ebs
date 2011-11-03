@@ -31,9 +31,9 @@ module ActiveMerchant #:nodoc:
                     
                     def initialize(order, account, options = {})
                         super
-                        add_field(mappings[:order_id], 'reference_no')
-                        add_field(mappings[:order_desc], 'description')
-                        add_field(mappings[:mode], 'mode')
+                        add_field(mapping[:order_id], 'reference_no')
+                        add_field(mapping[:order_desc], 'description')
+                        add_field(mapping[:mode], 'mode')
                     end
 
                 end
