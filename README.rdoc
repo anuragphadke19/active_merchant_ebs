@@ -47,7 +47,7 @@ If ActiveMerchant's actionview helpers don't load automatically, add the line in
 
 == Special Thanks
 
-This gem is heavily inspired by a similar integration done by Suman Debnath for CCavenue  @ https://github.com/meshbrain/active_merchant_ccavenue  
+This gem is heavily inspired by a similar integration done by Suman Debnath for CCavenue  @ https://github.com/meshbrain/active_merchant_ccavenue <br>
 Very special thanks to him.  
 
 == Copyright
