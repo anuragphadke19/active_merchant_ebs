@@ -27,8 +27,8 @@ module ActiveMerchant #:nodoc:
                         add_field 'return_url', mapping[:return_url]
                         add_field 'reference_no', mapping[:order_id]
                         add_field 'description', mapping[:order_desc]
-                        add_field 'account_id', EBS_CONFIG['account_id']
-                        add_field 'mode', EBS_CONFIG['mode']
+                        add_field 'account_id', ActiveMerchant::Billing::Integrations::Ebs.account_id
+                        add_field 'mode', ActiveMerchant::Billing::Integrations::Ebs.mode
                     end
                 end
             end

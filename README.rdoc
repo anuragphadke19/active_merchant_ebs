@@ -6,7 +6,7 @@ EBS integration for ActiveMerchant.
 
 === Requirements
 
-You need to install the ActiveMerchant gem or rails plugin. More info about ActiveMerchant installation can be found at http://www.activemerchant.org/.
+You need to install the ActiveMerchant gem or rails plugin. More info about ActiveMerchant installation can be found at http://www.activemerchant.org.
 
 === As a gem
 
@@ -32,7 +32,7 @@ Then create an initializer, like initializers/payment.rb. Add the following line
 
   ActiveMerchant::Billing::Integrations::Ebs.setup do |ebs|
     ebs.account_id =  #your EBS account ID
-    ebs.mode = TEST #EBS Mode 'TEST' or 'LIVE'
+    ebs.mode = 'TEST' #EBS Mode 'TEST' or 'LIVE'
   end
   EBS_ACCOUNT = 'youraccountname'
   EBS_SECRET_KEY = 'your secret key'
@@ -47,7 +47,7 @@ If ActiveMerchant's actionview helpers don't load automatically, add the line in
 
 == Special Thanks
 
-This gem is heavily inspired by a similar integration done by Suman Debnath for CCavenue  @ https://github.com/meshbrain/active_merchant_ccavenue
+This gem is heavily inspired by a similar integration done by Suman Debnath for CCavenue  @ https://github.com/meshbrain/active_merchant_ccavenue  
 Very special thanks to him.  
 
 == Copyright
