@@ -5,9 +5,6 @@ module ActiveMerchant #:nodoc:
                 class Helper < ActiveMerchant::Billing::Integrations::Helper
                     mapping :account, 'account_id'
                     mapping :amount, 'amount'
-                    mapping :order_id, 'reference_no'
-                    mapping :order_desc, 'description'
-                    mapping :mode, 'mode'
                     mapping :customer, :name  => 'name',
                                        :email => 'email'
                       
@@ -30,6 +27,13 @@ module ActiveMerchant #:nodoc:
                         add_field 'return_url', mapping[:return_url]
                         add_field 'account_id', EBS_CONFIG['account_id']
                         add_field 'mode', EBS_CONFIG['mode']
+                    end
+                    
+                    def initialize(order, account, options = {})
+                        super
+                        add_field(mappings[:order_id], 'reference_no')
+                        add_field(mappings[:order_desc], 'description')
+                        add_field(mappings[:mode], 'mode')
                     end
 
                 end
