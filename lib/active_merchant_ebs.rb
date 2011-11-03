@@ -16,10 +16,6 @@ module ActiveMerchant #:nodoc:
 
                 self.service_url = 'https://secure.ebs.in/pg/ma/sale/pay/'
 
-                def self.setup
-                    yield(self)
-                end
-
                 def self.notification(post)
                     Notification.new(post)
                 end
