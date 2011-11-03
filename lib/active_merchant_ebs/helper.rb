@@ -25,17 +25,11 @@ module ActiveMerchant #:nodoc:
 
                     def redirect(mapping = {})
                         add_field 'return_url', mapping[:return_url]
+                        add_field 'reference_no', mapping[:order_id]
+                        add_field 'description', mapping[:order_desc]
                         add_field 'account_id', EBS_CONFIG['account_id']
                         add_field 'mode', EBS_CONFIG['mode']
                     end
-                    
-                    def initialize(order, account, options = {})
-                        super
-                        add_field(mapping[:order_id], 'reference_no')
-                        add_field(mapping[:order_desc], 'description')
-                        add_field(mapping[:mode], 'mode')
-                    end
-
                 end
             end
         end
