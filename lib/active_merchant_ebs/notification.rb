@@ -21,10 +21,10 @@ module ActiveMerchant #:nodoc:
                   # processing geteway returned data
                   #
                   def parse(post)
-                    super
                     
                     Rails.logger.debug post
                     params = ebsin_decode(post, self.secret_key)
+                    Rails.logger.debug params
                     params
                   end
                   
@@ -75,6 +75,7 @@ module ActiveMerchant #:nodoc:
                     end
 
                     def status
+                      Rails.logger.debug params
                         params['ResponseMessage']
                     end
                     
