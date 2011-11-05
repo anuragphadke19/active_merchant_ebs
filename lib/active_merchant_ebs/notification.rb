@@ -24,21 +24,16 @@ module ActiveMerchant #:nodoc:
                   #
                   def parse(post)
                     
-                    Rails.logger.debug post
-                    Rails.logger.debug ebsin_decode(post, self.secret_key)
                     rc4 = RubyRc4.new(self.secret_key)
                     params = (Hash[ rc4.encrypt(Base64.decode64(post.gsub(/ /,'+'))).split('&').map { |x| x.split("=") } ]).slice(* NECESSARY )
-                    Rails.logger.debug "afte decode #{params}"
                     self.params = params
                     
                   end
                   
                   def ebsin_decode(data, key)
                     
-                    Rails.logger.debug data
                     rc4 = RubyRc4.new(key)
                     params = (Hash[ rc4.encrypt(Base64.decode64(data.gsub(/ /,'+'))).split('&').map { |x| x.split("=") } ]).slice(* NECESSARY )
-                    
                     params
                   end
                   
@@ -48,7 +43,6 @@ module ActiveMerchant #:nodoc:
                   
                     def valid?
                         verify_checksum(
-                            self.security_key,
                             ActiveMerchant::Billing::Integrations::Ebs.account_id,
                             self.payment_id,
                             self.gross,
