@@ -21,6 +21,8 @@ module ActiveMerchant #:nodoc:
                   # processing geteway returned data
                   #
                   def parse(post)
+                    super
+                    
                     Rails.logger.debug post
                     params = ebsin_decode(post, self.secret_key)
                     params
@@ -28,7 +30,6 @@ module ActiveMerchant #:nodoc:
                   
                   def ebsin_decode(data, key)
                     
-                    super
                     Rails.logger.debug data
                     rc4 = RubyRc4.new(key)
                     params = (Hash[ rc4.encrypt(Base64.decode64(data.gsub(/ /,'+'))).split('&').map { |x| x.split("=") } ]).slice(* NECESSARY )
