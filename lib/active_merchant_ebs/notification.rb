@@ -31,7 +31,6 @@ module ActiveMerchant #:nodoc:
                     Rails.logger.debug "afte decode #{params}"
                     params
                     
-                    super
                   end
                   
                   def ebsin_decode(data, key)
