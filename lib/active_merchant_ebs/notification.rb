@@ -30,7 +30,8 @@ module ActiveMerchant #:nodoc:
                     
                     Rails.logger.debug data
                     rc4 = RubyRc4.new(key)
-                    (Hash[ rc4.encrypt(Base64.decode64(data.gsub(/ /,'+'))).split('&').map { |x| x.split("=") } ]).slice(* NECESSARY )
+                    params = (Hash[ rc4.encrypt(Base64.decode64(data.gsub(/ /,'+'))).split('&').map { |x| x.split("=") } ]).slice(* NECESSARY )
+                    Rails.logger.debug params
                   end
                   
                   def successful?
