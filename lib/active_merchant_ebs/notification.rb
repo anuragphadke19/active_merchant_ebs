@@ -75,7 +75,6 @@ module ActiveMerchant #:nodoc:
                     end
 
                     def status
-                      Rails.logger.debug params
                         params['ResponseMessage']
                     end
                     
