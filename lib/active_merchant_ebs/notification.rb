@@ -6,6 +6,8 @@ module ActiveMerchant #:nodoc:
             module Ebs
                 class Notification < ActiveMerchant::Billing::Integrations::Notification
                   
+                  attr_accessor :params
+                  
                   #Necessary parameters in the :DR returned by ebs
                   NECESSARY = [
                                "Mode",
