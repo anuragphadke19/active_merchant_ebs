@@ -29,15 +29,22 @@ module ActiveMerchant #:nodoc:
                         add_field 'description', mapping[:order_desc]
                         add_field 'account_id', ActiveMerchant::Billing::Integrations::Ebs.account_id
                         add_field 'mode', ActiveMerchant::Billing::Integrations::Ebs.mode
+                        add_field 'Checksum', get_checksum(
+                                                    ActiveMerchant::Billing::Integrations::Ebs.account_id,
+                                                    self.fields[self.mappings[:order_id]],
+                                                    self.fields[self.mappings[:amount]],
+                                                    mapping[:return_url],
+                                                    ActiveMerchant::Billing::Integrations::Ebs.secret_key
+                                                )
                     end
                     
                     private
-                    def lookup_country_code(name_or_code, format = :alpha3)
-                        country = Country.find(name_or_code)
-                        country.code(format).to_s
-                    rescue InvalidCountryCodeError
-                        name_or_code
-                    end
+                      def lookup_country_code(name_or_code, format = :alpha3)
+                          country = Country.find(name_or_code)
+                          country.code(format).to_s
+                      rescue InvalidCountryCodeError
+                          name_or_code
+                      end
                 end
             end
         end

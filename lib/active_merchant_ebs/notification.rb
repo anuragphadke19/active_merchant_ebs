@@ -23,18 +23,18 @@ module ActiveMerchant #:nodoc:
                     (Hash[ rc4.encrypt(Base64.decode64(data.gsub(/ /,'+'))).split('&').map { |x| x.split("=") } ]).slice(* NECESSARY )
                   end
                   
-                  def successful?(data,response)
-                    data["ResponseMessage"] == "Transaction Successful"
+                  def successful?
+                    "Transaction Successful" == self.status
                   end
                   
                     def valid?
                         verify_checksum(
                             self.security_key,
-                            ActiveMerchant::Billing::Integrations::Ebs.merchant_id,
+                            ActiveMerchant::Billing::Integrations::Ebs.account_id,
                             self.payment_id,
                             self.gross,
                             self.status,
-                            ActiveMerchant::Billing::Integrations::Ebs.work_key
+                            ActiveMerchant::Billing::Integrations::Ebs.secret_key
                         )
                     end
                     
@@ -45,15 +45,15 @@ module ActiveMerchant #:nodoc:
                     end
 
                     def payment_id
-                        params['Order_Id']
+                        params['PaymentID']
                     end
 
                     def transaction_id
-                        params['nb_order_no']
+                        params['TransactionID']
                     end
 
                     def security_key
-                        params['Checksum']
+                        ActiveMerchant::Billing::Integrations::Ebs.secret_key
                     end
 
                     # the money amount we received in X.2 decimal.
@@ -62,7 +62,7 @@ module ActiveMerchant #:nodoc:
                     end
 
                     def status
-                        params['AuthDesc']
+                        params['ResponseMessage']
                     end
                     
                     private
