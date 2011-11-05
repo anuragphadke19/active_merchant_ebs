@@ -20,14 +20,12 @@ module ActiveMerchant #:nodoc:
                   #
                   def parse(post)
                     
-                    logger.debug post
                     params = ebsin_decode(post, self.secret_key)
                     params
                   end
                   
                   def ebsin_decode(data, key)
                     
-                    logger.debug date
                     rc4 = RubyRc4.new(key)
                     (Hash[ rc4.encrypt(Base64.decode64(data.gsub(/ /,'+'))).split('&').map { |x| x.split("=") } ]).slice(* NECESSARY )
                   end
