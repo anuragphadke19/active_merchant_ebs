@@ -23,7 +23,8 @@ class RubyRc4
   private
 
   def process(text)
-    0.upto(text.length-1) {|i| text[i] = text[i] ^ round}
+    0.upto(text.length-1) {|i| text[i] = text[i] ^ round} if RUBY_VERSION == '1.8.7'
+    0.upto(text.length-1) {|i| text[i] = [text[i].ord ^round].pack('c')} if RUBY_VERSION == '1.9.2'
     text
   end
   
