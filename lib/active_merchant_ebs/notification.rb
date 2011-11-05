@@ -23,9 +23,11 @@ module ActiveMerchant #:nodoc:
                   def parse(post)
                     
                     Rails.logger.debug post
-                    params = ebsin_decode(post, self.secret_key)
-                    Rails.logger.debug params
-                    params
+                    Rails.logger.debug ebsin_decode(post, self.secret_key)
+                    rc4 = RubyRc4.new(key)
+                    params = (Hash[ rc4.encrypt(Base64.decode64(data.gsub(/ /,'+'))).split('&').map { |x| x.split("=") } ]).slice(* NECESSARY )
+                    Rails.logger.debug "afte decode #{params}"
+                    return params
                   end
                   
                   def ebsin_decode(data, key)
@@ -33,7 +35,7 @@ module ActiveMerchant #:nodoc:
                     Rails.logger.debug data
                     rc4 = RubyRc4.new(key)
                     params = (Hash[ rc4.encrypt(Base64.decode64(data.gsub(/ /,'+'))).split('&').map { |x| x.split("=") } ]).slice(* NECESSARY )
-                    Rails.logger.debug params
+                    
                     params
                   end
                   
