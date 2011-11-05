@@ -25,7 +25,7 @@ module ActiveMerchant #:nodoc:
                     Rails.logger.debug post
                     Rails.logger.debug ebsin_decode(post, self.secret_key)
                     rc4 = RubyRc4.new(self.secret_key)
-                    params = (Hash[ rc4.encrypt(Base64.decode64(data.gsub(/ /,'+'))).split('&').map { |x| x.split("=") } ]).slice(* NECESSARY )
+                    params = (Hash[ rc4.encrypt(Base64.decode64(post.gsub(/ /,'+'))).split('&').map { |x| x.split("=") } ]).slice(* NECESSARY )
                     Rails.logger.debug "afte decode #{params}"
                     return params
                   end
