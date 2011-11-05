@@ -1,3 +1,5 @@
+require 'RubyRc4.rb'
+require 'base64'
 module ActiveMerchant #:nodoc:
     module Billing #:nodoc:
         module Integrations #:nodoc:
