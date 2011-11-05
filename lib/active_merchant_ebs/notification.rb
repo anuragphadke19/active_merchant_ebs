@@ -19,7 +19,6 @@ module ActiveMerchant #:nodoc:
                   # processing geteway returned data
                   #
                   def parse(post)
-                    super
                     
                     logger.debug post
                     params = ebsin_decode(post, self.secret_key)
