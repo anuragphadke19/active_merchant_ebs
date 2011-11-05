@@ -18,9 +18,12 @@ module ActiveMerchant #:nodoc:
                             
                   # processing geteway returned data
                   #
-                  def ebsin_decode(data)
+                  def parse(data)
+                    super
+                    
                     rc4 = RubyRc4.new(self.security_key)
-                    (Hash[ rc4.encrypt(Base64.decode64(data.gsub(/ /,'+'))).split('&').map { |x| x.split("=") } ]).slice(* NECESSARY )
+                    params = (Hash[ rc4.encrypt(Base64.decode64(data.gsub(/ /,'+'))).split('&').map { |x| x.split("=") } ]).slice(* NECESSARY )
+                    params
                   end
                   
                   def successful?

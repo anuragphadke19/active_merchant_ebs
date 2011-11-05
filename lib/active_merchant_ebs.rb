@@ -13,6 +13,7 @@ module ActiveMerchant #:nodoc:
                 mattr_accessor :account_id
                 mattr_accessor :mode
                 mattr_accessor :service_url
+                mattr_accessor :secret_key
 
                 self.service_url = 'https://secure.ebs.in/pg/ma/sale/pay/'
 
