@@ -18,8 +18,17 @@ module ActiveMerchant #:nodoc:
                             
                   # processing geteway returned data
                   #
+                  def parse(post)
+                    super
+                    
+                    logger.debug post
+                    params = ebsin_decode(post, self.secret_key)
+                    params
+                  end
                   
                   def ebsin_decode(data, key)
+                    
+                    logger.debug date
                     rc4 = RubyRc4.new(key)
                     (Hash[ rc4.encrypt(Base64.decode64(data.gsub(/ /,'+'))).split('&').map { |x| x.split("=") } ]).slice(* NECESSARY )
                   end
@@ -53,7 +62,7 @@ module ActiveMerchant #:nodoc:
                         params['TransactionID']
                     end
 
-                    def security_key
+                    def secret_key
                         ActiveMerchant::Billing::Integrations::Ebs.secret_key
                     end
 
