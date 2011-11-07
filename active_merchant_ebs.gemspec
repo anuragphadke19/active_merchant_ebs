@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = ActiveMerchantEbs::VERSION
   s.authors     = ["Anurag Phadke"]
   s.email       = ["anuragphadke19@gmail.com"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/anuragphadke19/active_merchant_ebs"
   s.summary     = "Active merchant integration for EBS Payment Gateway from India"
   s.description = "Active merchant integration for EBS Payment Gateway from India"
 
