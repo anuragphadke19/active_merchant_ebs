@@ -18,12 +18,6 @@ To use the ActiveMerchantEbs gem in a Rails 3 application, add the following lin
 
   gem 'active_merchant_ebs'
 
-=== As a Rails plugin
-
-To add ActiveMerchantEbs as a plugin in a Rails application, run the following command in your application root:
-
-  > plugin install git@github.com:anuragphadke19/active_merchant_ebs.git
-
 == Configuration
 
 Create a merchant account with EBS.
