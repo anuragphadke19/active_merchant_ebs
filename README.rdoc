@@ -27,7 +27,7 @@ Then create an initializer, like initializers/payment.rb. Add the following line
   ActiveMerchant::Billing::Integrations::Ebs.setup do |ebs|
     ebs.account_id =  #your EBS account ID
     ebs.mode = 'TEST' #EBS Mode 'TEST' or 'LIVE'
-	ebs.secret_key = 'your secret key' #Provided by EBS
+    ebs.secret_key = 'your secret key' #Provided by EBS
   end
   EBS_ACCOUNT = 'youraccountname'
   
