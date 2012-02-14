@@ -22,36 +22,49 @@ To use the ActiveMerchantEbs gem in a Rails 3 application, add the following lin
 
 Create a merchant account with EBS.
 
-Create a config file, like config/EBS.yml. Add the following lines:
-
-  development: &defaults
-    secret_key: <Enter your secret key without quotes>
-    mode: TEST
-    account_id: <Enter your account_id without quotes>
-  
-  staging:
-    <<: *defaults
-
-  test:
-    <<: *defaults
-
-  production:
-    secret_key: <Enter your secret key without quotes>
-    mode: LIVE
-    account_id: <Enter your account_id without quotes>
-  
-Then add an intitializer, like initializer/ebs.rb, and add the following line
-
-  EBS_CONFIG = YAML.load_file("#{Rails.root}/config/EBS.yml")[Rails.env]
-
-This will load the ebs config file at the tie of initialization making it available throughout the app as EBS_CONFIG.
+Then create an initializer, like initializers/payment.rb. Add the following lines:
+    ActiveMerchant::Billing::Integrations::Ebs.setup do |ebs|
+      ebs.account_id =  #your EBS account ID
+      ebs.mode = 'TEST' #EBS Mode 'TEST' or 'LIVE'
+      ebs.secret_key = 'your secret key' #Provided by EBS
+    end
+    EBS_ACCOUNT = 'youraccountname'
 
 If ActiveMerchant's actionview helpers don't load automatically, add the line in your initializer:
 
   ActionView::Base.send :include, ActiveMerchant::Billing::Integrations::ActionViewHelper
 
-== Example Usage    
-      
+== Example Usage
+    <% payment_service_for @order.id, EBS_ACCOUNT,
+        :amount => @order.price_in_cents,
+        :service => :ebs do |service| %>    
+      <%  service.customer :name => @order.fullname,
+                           :email => "test@order.email" %>
+      <%  service.billing_address :city => "Bang",
+                                  :address1 => "@order.billing_address.address_line_1",
+                                  :state    => "@order.billing_address.state",
+                                  :pin      => "123456",
+                                  :country  => "IN",
+                                  :phone    => "9876543210" %>
+      <%  service.redirect :return_url => [orders_callback_url(@order),'DR={DR}'].join('?'),
+                           :order_id => @order.id,
+                           :order_desc => "@order.id" %>
+      <%= submit_tag 'Proceed to payment' %>
+    <% end %>
+
+In your controller
+    
+    def callback
+      @order   = Order.find(params[:id])
+      logger.debug params[:DR]
+      @notification = ActiveMerchant::Billing::Integrations::Ebs::Notification.new(params[:DR].to_s)
+      logger.debug "Success -- #{@notification.successful?}"
+      if @notification.successful?
+        render :action => 'success'
+      else
+        render :action => 'failure'
+      end
+    end      
 
 == Special Thanks
 
