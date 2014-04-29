@@ -24,6 +24,7 @@ module ActiveMerchant #:nodoc:
                                                :phone    => 'ship_phone'
 
                     def redirect(mapping = {})
+                      require 'digest/md5'
                         add_field 'return_url', mapping[:return_url]
                         add_field 'reference_no', mapping[:order_id]
                         add_field 'description', mapping[:order_desc]
@@ -36,6 +37,7 @@ module ActiveMerchant #:nodoc:
                                                     mapping[:return_url],
                                                     ActiveMerchant::Billing::Integrations::Ebs.secret_key
                                                 )
+                        add_field 'secure_hash', Digest::MD5.hexdigest("#{ActiveMerchant::Billing::Integrations::Ebs.secret_key}|#{ActiveMerchant::Billing::Integrations::Ebs.account_id}|#{self.fields[self.mappings[:amount]]}|#{mapping[:order_id]}|#{mapping[:return_url]}|#{ActiveMerchant::Billing::Integrations::Ebs.mode}")
                     end
                     
                     private
