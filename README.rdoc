@@ -2,6 +2,8 @@
 
 EBS integration for ActiveMerchant.
 
+NOTE: This fork works for Secure Hash Validation enabled as well.
+
 == Installation
 
 === Requirements
