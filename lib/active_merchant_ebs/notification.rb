@@ -64,6 +64,10 @@ module ActiveMerchant #:nodoc:
                     def transaction_id
                         params['TransactionID']
                     end
+                    
+                    def merchant_ref_no
+                      params['MerchantRefNo']
+                    end
 
                     def secret_key
                         ActiveMerchant::Billing::Integrations::Ebs.secret_key
